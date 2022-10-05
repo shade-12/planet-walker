@@ -16,9 +16,9 @@ function CubicSplineCanvas() {
 
     // console.log(data)
     var xScale = d3.scaleLinear()
-        .domain([0, 10]).range([25, 175]);
+        .domain([0, 10]).range([100, 700]);
     var yScale = d3.scaleLinear()
-        .domain([-2, 2]).range([175, 25]);
+        .domain([-4, 4]).range([700, 100]);
 
     var line = d3.line()
         .x((d) => xScale(d.x))
@@ -29,13 +29,12 @@ function CubicSplineCanvas() {
         .append("path")
         .attr("d", line(data))
         .attr("fill", "none")
-        .attr("stroke", "blue");
+        .attr("stroke", "yellow")
 
     return (
         <div className="CubicSplineCanvas">
             <center>
-                <h3>Cubic Spline Canvas</h3>
-                <svg id="gfg" width="500" height="500"></svg>
+                <svg id="gfg" width="800" height="700"></svg>
             </center>
         </div>
     );
