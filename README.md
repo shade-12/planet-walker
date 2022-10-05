@@ -1,6 +1,6 @@
 # Planet Walker 👻
 
-This project explores the application of cubic spline interpolation visually using [D3js](https://d3js.org/).
+This project explores the application of cubic spline interpolation visually using [D3.js](https://d3js.org/).
 
 
 ### Attributions
