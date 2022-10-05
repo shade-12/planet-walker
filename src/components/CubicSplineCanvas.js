@@ -7,8 +7,8 @@ function CubicSplineCanvas() {
     useEffect(() => {
         let data = [];
     
-        let x = [0,1,2,1.5,1.5,1,0,0,1,2,3,4,4,3,3,4,5,5,6,6,7,8,8,7,6.75,8,10,11,5,0,5,10]
-        let y = [2,2,3,3,1.5,0.5,0,1,1,0.5,0,0,1,1,0,0,1,0,0,1,0.5,0.5,1,1,0.25,0,0.5,0,-2,-1,-1,-2]
+        let x = [0,1,2,1.5,1.5,1,0,0,1,2,3,4,4,3,3,4,5,5,6,6,7,8,8,7,6.75,8,10,11,5,0,5,10];
+        let y = [2,2,3,3,1.5,0.5,0,1,1,0.5,0,0,1,1,0,0,1,0,0,1,0.5,0.5,1,1,0.25,0,0.5,0,-2,-1,-1,-2];
 
         for (let i = 0; i < x.length; i++)
             data.push({ x: x[i], y: y[i] });
@@ -58,18 +58,6 @@ function CubicSplineCanvas() {
             .attr("r", 3)
             .attr("fill", "#f00");
         
-        svg.append("path")
-            .attr("d", `M0,${-iconSize/2}
-                        L${iconSize}, ${-iconSize}
-                        L${iconSize/2},0
-                        L${iconSize},${iconSize}
-                        L0,${iconSize/2}
-                        L${-iconSize},${iconSize}
-                        L${-iconSize/2},0
-                        L${-iconSize},${-iconSize}z`)
-            .attr("stroke", "#fff")
-            .attr("fill", "#f88")
-        
         // get the icon's rotation given two points on the path
         // ensure that, from one position to the next, the rotation doesn't change by a large amount
         // (as a result of the atan calculation)
@@ -81,7 +69,6 @@ function CubicSplineCanvas() {
             // prevent icon from flip-flopping across the line
             let diffR = (newR - oldR + 360) % 360;
             if (diffR > 90 && diffR < 270) {
-                console.log(offsetR, newR, oldR, diffR)
                 newR -= 180;
                 offsetR = (offsetR + 180) % 360;  // adjust offset
             }
