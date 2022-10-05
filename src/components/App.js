@@ -1,15 +1,14 @@
 import React from 'react';
-
-import logo from './logo.svg';
-import './App.css';
+import '../styles/App.css';
 
 // React components import
-import Footer from './footer';
+import CubicSpline from './CubicSpline';
+import Footer from './Footer';
 
 function App() {
   return (
     <div className="App">
-      
+      <CubicSpline />
       <Footer />
     </div>
   );
