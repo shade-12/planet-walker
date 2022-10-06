@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
-
-// Interpolator module import
 import * as d3 from "d3";
 
-function CubicSplineCanvas() {
+function Canvas() {
     useEffect(() => {
         let data = [];
     
@@ -27,7 +25,7 @@ function CubicSplineCanvas() {
 
         // =========================================================================================
         //
-        // Code adapted from https://observablehq.com/@lemonnish/move-an-svg-icon-along-a-path.
+        // Code adapted from https://observablehq.com/@lemonnish/move-an-svg-sprite-along-a-path.
         //
         // =========================================================================================
 
@@ -43,30 +41,25 @@ function CubicSplineCanvas() {
 
         /* Keep track of value at last position: */
         let pathLength, oldR, r;
-        let offsetR = 180, iconSize = 10;  // start position, also used to correct for off-by-180deg error
+        let offsetR = 180;  // start position, also used to correct for off-by-180deg error
         
-        // draw icon group
-        const icon = svg.append("g");
-        icon.append("circle")
-            .attr("cx",iconSize)
-            .attr("cy",iconSize)
-            .attr("r", 3)
-            .attr("fill", "#fff");
-        icon.append("circle")
-            .attr("cx",-iconSize)
-            .attr("cy",-iconSize)
-            .attr("r", 3)
-            .attr("fill", "#f00");
+        /* Construct sprite */
+        const sprite = svg.append("svg:image");
+        /* Add markers */
+        sprite.attr("xlink:href", require("../assets/skins/astronaut-walkright.png"))
+              .attr("rotate", "180deg");
         
-        // get the icon's rotation given two points on the path
-        // ensure that, from one position to the next, the rotation doesn't change by a large amount
-        // (as a result of the atan calculation)
+        /** 
+         * Get the sprite's rotation given two points on the path
+         * ensure that, from one position to the next, the rotation doesn't change by a large amount
+         * (as a result of the atan calculation)
+         */
         function getRotation(oldPoint, newPoint) {
             let dx = newPoint.x - oldPoint.x;
             let dy = newPoint.y - oldPoint.y;
             let newR = Math.atan(dy/dx) * 180 / Math.PI + offsetR;
 
-            // prevent icon from flip-flopping across the line
+            // prevent sprite from flip-flopping across the line
             let diffR = (newR - oldR + 360) % 360;
             if (diffR > 90 && diffR < 270) {
                 newR -= 180;
@@ -84,24 +77,24 @@ function CubicSplineCanvas() {
                     // update rotation (as long as the animation isn't almost over)
                     if (t + tStep <= 1) 
                         r = getRotation(path.getPointAtLength((t+tStep)*pathLength), p);
-                    return `translate(${p.x},${p.y})rotate(${r})`;
+                    return `translate(${p.x},${p.y})rotate(${r + 180})`;
                 };
             };
         }
 
-        /* Animate icon group */
-        icon.transition()
+        /* Animate sprite group */
+        sprite.transition()
             .duration(10000)
             .attrTween("transform", translateAlong(path.node()));
     });
 
     return (
-        <div className="CubicSplineCanvas">
+        <div className="Canvas">
             <center>
-                <svg id="love" width="800" height="600"></svg>
+                <svg id="love" width="800" height="700"></svg>
             </center>
         </div>
     );
 }
 
-export default CubicSplineCanvas;
+export default Canvas;
